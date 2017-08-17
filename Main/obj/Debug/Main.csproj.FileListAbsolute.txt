@@ -1,0 +1,6 @@
+C:\Users\wadewatts\Documents\GitHub\Laboratorio2-Thompson\Main\obj\Debug\Main.csprojResolveAssemblyReference.cache
+C:\Users\wadewatts\Documents\GitHub\Laboratorio2-Thompson\Main\bin\Debug\Main.exe.config
+C:\Users\wadewatts\Documents\GitHub\Laboratorio2-Thompson\Main\bin\Debug\Main.exe
+C:\Users\wadewatts\Documents\GitHub\Laboratorio2-Thompson\Main\bin\Debug\Main.pdb
+C:\Users\wadewatts\Documents\GitHub\Laboratorio2-Thompson\Main\obj\Debug\Main.exe
+C:\Users\wadewatts\Documents\GitHub\Laboratorio2-Thompson\Main\obj\Debug\Main.pdb
