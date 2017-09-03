@@ -52,8 +52,9 @@ namespace Main
 
             l.Add(this.inicio);
             foreach (var i in s)
+            {
                 l = moveD(l, s[i].ToString());
-
+            }
             if (l.All(fin.Contains))
                 Console.WriteLine("El String " + s + " si es un posible resultado");
             else
@@ -61,7 +62,10 @@ namespace Main
         }
 
 
-        
+        public int GetEstados()
+        {
+            return this.cantEstados;
+        }
 
 
 

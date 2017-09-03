@@ -201,7 +201,7 @@ namespace Main
         {
             if (!contEstados.Contains(temp)) {
                 cantEstados = cantEstados + 1;
-                temp.setNum(cantEstados.ToString());
+                //temp.setNum(cantEstados.ToString());
                 contEstados.Add(temp);
                 foreach (var i in temp.getConexiones())
                 {

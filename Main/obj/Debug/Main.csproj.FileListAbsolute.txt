@@ -4,3 +4,10 @@ C:\Users\wadewatts\Documents\GitHub\Laboratorio2-Thompson\Main\bin\Debug\Main.ex
 C:\Users\wadewatts\Documents\GitHub\Laboratorio2-Thompson\Main\bin\Debug\Main.pdb
 C:\Users\wadewatts\Documents\GitHub\Laboratorio2-Thompson\Main\obj\Debug\Main.exe
 C:\Users\wadewatts\Documents\GitHub\Laboratorio2-Thompson\Main\obj\Debug\Main.pdb
+C:\Users\WadeOwen\Documents\GitHub\Laboratorio2-Thompson\Main\obj\Debug\Main.csprojResolveAssemblyReference.cache
+C:\Users\WadeOwen\Documents\GitHub\Laboratorio2-Thompson\Main\obj\Debug\Main.csproj.CoreCompileInputs.cache
+C:\Users\WadeOwen\Documents\GitHub\Laboratorio2-Thompson\Main\obj\Debug\Main.exe
+C:\Users\WadeOwen\Documents\GitHub\Laboratorio2-Thompson\Main\obj\Debug\Main.pdb
+C:\Users\WadeOwen\Documents\GitHub\Laboratorio2-Thompson\Main\bin\Debug\Main.exe.config
+C:\Users\WadeOwen\Documents\GitHub\Laboratorio2-Thompson\Main\bin\Debug\Main.exe
+C:\Users\WadeOwen\Documents\GitHub\Laboratorio2-Thompson\Main\bin\Debug\Main.pdb

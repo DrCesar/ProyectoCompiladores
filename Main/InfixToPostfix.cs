@@ -9,12 +9,12 @@ using System.Collections.Generic;
 
 namespace Main
 {
-
     internal class InfixToPostfix
     {
         private String infix;
-        private Stack<string> stackPost = new Stack<string>();
-        private Stack<string> op = new Stack<string>();
+        private Stack<Symbol> temp = new Stack<Symbol>();
+        private Stack<Symbol> stackPost = new Stack<Symbol>();
+        private Stack<Symbol> op = new Stack<Symbol>();
         private string postfix;
         private bool ts;
 
@@ -34,7 +34,6 @@ namespace Main
                         return 0;
                     }
                 case "*":
-                case "+":
                     {
                         return 3;
                     }
@@ -55,40 +54,66 @@ namespace Main
         {
             string s = this.infix;
             int i = 0;
-            s = s.ToLower();
 
-            while (i < s.Length)
+            while (i < this.infix.Length)
             {
-                switch (s[i])
+                switch (this.infix[i])
                 {
+                    case '{':                      
                     case '(':
                         if (ts)
                             signo(".");
-                        op.Push("(");
+                        op.Push(new Symbol("(",true));
                         break;
                     case ')':
-                        while (op.Count != 0 && op.Peek() != "(")
-                            stackPost.Push(op.Pop());
+                        while (op.Count != 0 && op.Peek().getSym() != "(")
+                            temp.Push(op.Pop());
                         if (op.Count != 0)
                             op.Pop();
                         break;
-                    case '|':
-                    case '*':
-                    case '.':
-                    case '+':
-                        signo(s[i].ToString());
+                    case ']':
+                    case '}':
+                        while (op.Count != 0 && op.Peek().getSym() != "(")
+                            temp.Push(op.Pop());
+                        if (op.Count != 0)
+                            op.Pop();
+                        op.Push(new Symbol("*",true));
                         break;
-                    case '?':
-                        signo("|");
-                        op.Push("@");
+                    case '|':
+                        signo(this.infix[i].ToString());
+                        break;
+                    case '[':
+                        if (s[i + 1] == '@' && s[i + 2] == 'N' && s[i + 3] == '&')
+                        {
+                            for (int j = 0; j < 256; j++)
+                            {
+                                char c = (char)j;
+                                if (s[i + 4] == 'S' && c != '"')
+                                    temp.Push(new Symbol(c.ToString(), false));
+                                if (s[i + 4] == 'C' && c != '\'')
+                                    temp.Push(new Symbol(c.ToString(), false));
+                                if (j < 255)
+                                    signo("|");
+                            }
+                            i = i + 5;
+                        }
+                        else
+                        {
+                            if (ts)
+                                signo(".");
+                            op.Push(new Symbol("(", true));
+                            break;
+                        }
+                        break;
+                    case ' ':
                         break;
                     default:
                         {
                             if (ts)
                             {
-                                signo(".");
+                                signo("|");
                             }
-                            stackPost.Push(s[i].ToString());
+                            temp.Push(new Symbol(this.infix[i].ToString(), false));
                             ts = true;
                         }
                         break;
@@ -99,40 +124,31 @@ namespace Main
 
             while (op.Count > 0)
             {
-                stackPost.Push(op.Pop());
+                temp.Push(op.Pop());
             }
 
             postfix = "";
 
-            while(stackPost.Count > 0)
+            while(temp.Count > 0)
             {
-                postfix = stackPost.Pop() + postfix;
+                stackPost.Push(temp.Pop());
             }
-        }
-
-        public void preSigno(string c)
-        {
-            if (ts)
-            {
-                signo("*");
-            }
-            signo(c);
         }
 
         public void signo(string c)
         {
-            while (op.Count != 0 && jer(c) <= jer(op.Peek()))
+            while (op.Count != 0 && jer(c) <= jer(op.Peek().getSym()))
             {
-                stackPost.Push(op.Pop());
+                temp.Push(op.Pop());
             }
             if (c == "*" || c == "+")
             {
-                stackPost.Push(c);
+                temp.Push(new Symbol(c,true));
                 ts = true;
             }
             else
             {
-                op.Push(c);
+                op.Push(new Symbol(c,true));
                 ts = false;
             }
         }
@@ -143,18 +159,18 @@ namespace Main
 
         public string toString()
         {
-            Stack<string> temp = this.stackPost;
+            Stack<Symbol> temp = this.stackPost;
             string res = "";
 
             while(temp.Count > 0)
             {
-                res = temp.Pop() + res;
+                res = res + temp.Pop().getSym();
             }
 
             return res;
         }
 
-        public Stack<string> getStackPost()
+        public Stack<Symbol> getStackPost()
         {
             return this.stackPost;
         }

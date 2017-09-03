@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
-
+ 
 namespace Main
 {
     class ArbolSin
@@ -21,45 +21,50 @@ namespace Main
 
         public ArbolSin(string s)
         {
+            InfixToPostfix ix = new InfixToPostfix(s);
+            Stack<Symbol> postfix = ix.getStackPost();
             Stack<Nodo> sNodo = new Stack<Nodo>();
             alfa = new List<string>();
             Nodo temp;
             int cont = 0;
 
-            for (int i = 0; i < s.Length; i++)
+            foreach (Symbol sim in postfix)
             {
-                switch (s[i])
-                {
-                    case '|':
-                        sNodo.Push(new Nodo(s[i].ToString(), sNodo.Pop(), sNodo.Pop()));
-                        break;
-                    case '.':
-                        sNodo.Push(new Nodo(s[i].ToString(), sNodo.Pop(), sNodo.Pop()));
-                        break;
-                    case '*':
-                        sNodo.Push(new Nodo(s[i].ToString(), sNodo.Pop()));
-                        break;
-                    case '+':
-                        temp = DeepCopy(sNodo.Peek());
-                        sNodo.Push(new Nodo("*", sNodo.Pop()));
-                        sNodo.Push(new Nodo(".", temp, sNodo.Pop()));
-                        break;
-                    default:
-                        temp = new Nodo(s[i].ToString());
-                        temp.getFPos().Add(temp);
-                        temp.getLPos().Add(temp);
-                        if (s[i] == '#')
-                            this.fin = temp;
-                        else
-                        {
-                            if (!alfa.Contains(s[i].ToString()))
-                                alfa.Add(s[i].ToString());
-                        }
-                        cont++;
-                        temp.setNum(cont.ToString());
-                        sNodo.Push(temp);
+                if (sim.isOper())
+                    switch (sim.getSym())
+                    {
+                        case "|":
+                            sNodo.Push(new Nodo(sim.getSym(), sNodo.Pop(), sNodo.Pop()));
+                            break;
+                        case ".":
+                            sNodo.Push(new Nodo(sim.getSym(), sNodo.Pop(), sNodo.Pop()));
+                            break;
+                        case "*":
+                            sNodo.Push(new Nodo(sim.getSym(), sNodo.Pop()));
+                            break;
+                            /*case '+':
+                                temp = DeepCopy(sNodo.Peek());
+                                sNodo.Push(new Nodo("*", sNodo.Pop()));
+                                sNodo.Push(new Nodo(".", temp, sNodo.Pop()));
+                                break;*/
+                    }
+                else
+                { 
+                    temp = new Nodo(sim.getSym());
+                    temp.getFPos().Add(temp);
+                    temp.getLPos().Add(temp);
+                    if (sim.getSym() == "#")
+                        this.fin = temp;
+                    else
+                    {
+                        if (!alfa.Contains(sim.getSym()))
+                            alfa.Add(sim.getSym());
+                    }
+                    cont++;
+                    temp.setNum(cont.ToString());
+                    sNodo.Push(temp);
 
-                        break;
+                    break;
                 }
             }
 

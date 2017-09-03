@@ -12,7 +12,10 @@ namespace Main
         
         static void Main(string[] args)
         {
-            InfixToPostfix fix;
+            string line;
+            string text = "";
+            Vocabulary vocab = new Vocabulary();
+            /*InfixToPostfix fix;
             PostfixToAutomata i;
             string input;
             Converter c = new Converter();
@@ -52,7 +55,17 @@ namespace Main
                 regex = Console.ReadLine();
                 i.getAuto().simular(regex);
                 afd2.simular(regex);
+            }*/
+
+            System.IO.StreamReader file = new System.IO.StreamReader("test.txt");
+            while ((line = file.ReadLine()) != null)
+            {
+                text = text + line;
             }
+            file.Close();
+
+            text = text.Replace(" ", "");
+            vocab.Simulate(text);
 
             Console.ReadLine();
 
